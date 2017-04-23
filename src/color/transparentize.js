@@ -3,6 +3,7 @@ import rgba from './rgba'
 import parseToRgb from './parseToRgb'
 import guard from '../internalHelpers/_guard'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Decreases the opacity of a color. Its range for the amount is between 0 to 1.
@@ -32,7 +33,8 @@ import curry from '../internalHelpers/_curry'
  * }
  */
 function transparentize(amount: number, color: string) {
-  const parsedColor = parseToRgb(color)
+  const normalizedColor = nameToHex(color)
+  const parsedColor = parseToRgb(normalizedColor)
   const alpha: number = typeof parsedColor.alpha === 'number' ? parsedColor.alpha : 1
   const colorWithAlpha = {
     ...parsedColor,

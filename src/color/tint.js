@@ -2,10 +2,11 @@
 
 import mix from './mix'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
- * Tints a color by mixing it with white. Compared to `lighten` it can produce
- * hue shifts, wheres `lighten` manipulates the luminance channel and therefor
+ * Tints a color by mixing it with white. `tint` can produce
+ * hue shifts, where as `lighten` manipulates the luminance channel and therefore
  * doesn't produce hue shifts.
  *
  * @example
@@ -28,7 +29,9 @@ import curry from '../internalHelpers/_curry'
 
 function tint(percentage: number, color: string) {
   if (typeof percentage !== 'number' || percentage > 1 || percentage < -1) throw new Error('Passed an incorrect argument to tint, please pass a percentage less than or equal to 1 and larger than or equal to -1.')
-  return mix(percentage, color, 'rgb(255, 255, 255)')
+  if (typeof color !== 'string') throw new Error('Passed an incorrect argument to a color function, please pass a string representation of a color.')
+  const normalizedColor = nameToHex(color)
+  return mix(percentage, normalizedColor, 'rgb(255, 255, 255)')
 }
 
 export default curry(tint)

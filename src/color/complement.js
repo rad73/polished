@@ -2,6 +2,7 @@
 
 import parseToHsl from './parseToHsl'
 import toColorString from './toColorString'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Returns the complement of the provided color. This is identical to adjustHue(180, <color>).
@@ -26,7 +27,8 @@ import toColorString from './toColorString'
  * }
  */
 function complement(color: string): string {
-  const hslColor = parseToHsl(color)
+  const normalizedColor = nameToHex(color)
+  const hslColor = parseToHsl(normalizedColor)
   return toColorString({
     ...hslColor,
     hue: (hslColor.hue + 180) % 360,

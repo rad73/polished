@@ -3,6 +3,7 @@
 import parseToRgb from './parseToRgb'
 import rgbToHsl from '../internalHelpers/_rgbToHsl'
 import type { HslColor, HslaColor } from '../types/color'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Returns an HslColor or HslaColor object. This utility function is only useful
@@ -16,9 +17,10 @@ import type { HslColor, HslaColor } from '../types/color'
  * const color2 = 'hsla(210, 10%, 40%, 0.75)';
  */
 function parseToHsl(color: string): HslColor | HslaColor {
+  const normalizedColor = nameToHex(color)
   // Note: At a later stage we can optimize this function as right now a hsl
   // color would be parsed converted to rgb values and converted back to hsl.
-  return rgbToHsl(parseToRgb(color))
+  return rgbToHsl(parseToRgb(normalizedColor))
 }
 
 export default parseToHsl

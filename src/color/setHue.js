@@ -3,6 +3,7 @@
 import parseToHsl from './parseToHsl'
 import toColorString from './toColorString'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Sets the hue of a color to the provided value. The hue range can be
@@ -28,8 +29,10 @@ import curry from '../internalHelpers/_curry'
  * }
  */
 function setHue(hue: number, color: string): string {
+  const normalizedColor = nameToHex(color)
+  const hslColor = parseToHsl(normalizedColor)
   return toColorString({
-    ...parseToHsl(color),
+    ...hslColor,
     hue,
   })
 }

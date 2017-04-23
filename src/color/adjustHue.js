@@ -3,6 +3,7 @@
 import parseToHsl from './parseToHsl'
 import toColorString from './toColorString'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Changes the hue of the color. Hue is a number between 0 to 360. The first
@@ -29,7 +30,8 @@ import curry from '../internalHelpers/_curry'
  * }
  */
 function adjustHue(degree: number, color: string): string {
-  const hslColor = parseToHsl(color)
+  const normalizedColor = nameToHex(color)
+  const hslColor = parseToHsl(normalizedColor)
   return toColorString({
     ...hslColor,
     hue: (hslColor.hue + degree) % 360,

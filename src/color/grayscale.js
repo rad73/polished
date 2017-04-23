@@ -2,6 +2,7 @@
 
 import parseToHsl from './parseToHsl'
 import toColorString from './toColorString'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Converts the color to a grayscale, by reducing its saturation to 0.
@@ -26,8 +27,10 @@ import toColorString from './toColorString'
  * }
  */
 function grayscale(color: string): string {
+  const normalizedColor = nameToHex(color)
+  const hslColor = parseToHsl(normalizedColor)
   return toColorString({
-    ...parseToHsl(color),
+    ...hslColor,
     saturation: 0,
   })
 }

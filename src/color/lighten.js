@@ -4,6 +4,7 @@ import parseToHsl from './parseToHsl'
 import toColorString from './toColorString'
 import guard from '../internalHelpers/_guard'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Returns a string value for the lightened color.
@@ -29,7 +30,8 @@ import curry from '../internalHelpers/_curry'
  * }
  */
 function lighten(amount: number, color: string): string {
-  const hslColor = parseToHsl(color)
+  const normalizedColor = nameToHex(color)
+  const hslColor = parseToHsl(normalizedColor)
   return toColorString({
     ...hslColor,
     lightness: guard(0, 1, hslColor.lightness + amount),

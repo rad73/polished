@@ -3,6 +3,7 @@
 import rgba from './rgba'
 import parseToRgb from './parseToRgb'
 import curry from '../internalHelpers/_curry'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Mixes two colors together by calculating the average of each of the RGB components.
@@ -36,13 +37,15 @@ import curry from '../internalHelpers/_curry'
  * }
  */
 function mix(weight: number = 0.5, color: string, otherColor: string): string {
-  const parsedColor1 = parseToRgb(color)
+  const normalizedColor1 = nameToHex(color)
+  const parsedColor1 = parseToRgb(normalizedColor1)
   const color1 = {
     ...parsedColor1,
     alpha: typeof parsedColor1.alpha === 'number' ? parsedColor1.alpha : 1,
   }
 
-  const parsedColor2 = parseToRgb(otherColor)
+  const normalizedColor2 = nameToHex(otherColor)
+  const parsedColor2 = parseToRgb(normalizedColor2)
   const color2 = {
     ...parsedColor2,
     alpha: typeof parsedColor2.alpha === 'number' ? parsedColor2.alpha : 1,

@@ -2,6 +2,7 @@
 
 import parseToRgb from './parseToRgb'
 import toColorString from './toColorString'
+import nameToHex from '../internalHelpers/_nameToHex'
 
 /**
  * Inverts the red, green and blue values of a color.
@@ -27,8 +28,9 @@ import toColorString from './toColorString'
  * }
  */
 function invert(color: string): string {
-  // parse color string to hsl
-  const value = parseToRgb(color)
+  const normalizedColor = nameToHex(color)
+  // parse color string to rgb
+  const value = parseToRgb(normalizedColor)
   return toColorString({
     ...value,
     red: 255 - value.red,
